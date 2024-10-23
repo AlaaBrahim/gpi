@@ -1,0 +1,464 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+
+<style>
+    body {
+        background-color: #f5f7fa;
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .btn-primary {
+        background: linear-gradient(to right, #2a38d4, #3a8fb4);
+        border: none;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        font-size: 1rem;
+        padding: 10px 20px;
+        color: #fff;
+        border-radius: 5px;
+    }
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(5, 46, 157, 0.2);
+    }
+    .dashboard-header {
+        background: linear-gradient(to right, #667eea, #764ba2);
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2rem;
+        transition: transform 0.3s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .dashboard-header:hover {
+        transform: scale(1.05);
+    }
+    .dashboard-title {
+        font-size: 1.5rem;
+        color: #fff;
+        margin-bottom: 0.5rem;
+        font-weight: bolder;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        transform-style: preserve-3d;
+        perspective: 500px;
+        transition: transform 0.5s;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .dashboard-title:hover {
+        transform: rotateY(10deg) rotateX(10deg);
+    }
+    .dashboard-title .icon {
+        font-size: 1.5rem;
+        color: #ffd700;
+    }
+    .card {
+        background-color: #fff;
+        border-radius: 1rem;
+        box-shadow: 8px 8px 15px rgba(142, 149, 243, 0.6), -8px -8px 15px rgba(164, 166, 225, 0.8);
+        margin-bottom: 2rem;
+        transition: transform 0.3s ease-in-out;
+    }
+    .card:hover {
+        transform: scale(1.05);
+    }
+    .card-header {
+        background-color: #667eea;
+        color: #fff;
+        padding: 1rem;
+        border-top-left-radius: 1rem;
+        border-top-right-radius: 1rem;
+        font-size: 1.25rem;
+        font-weight: bold;
+        transform-style: preserve-3d;
+        perspective: 500px;
+        transition: transform 0.5s;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+    .card-header i {
+        color: #ffd700;
+    }
+    .card-header:hover {
+        transform: rotateY(10deg) rotateX(10deg);
+    }
+    .card-body {
+        padding: 2rem;
+    }
+    .chart-container {
+        position: relative;
+        height: 300px;
+        margin-bottom: 20px;
+    }
+    #map {
+        height: 300px;
+        border-radius: 10px;
+    }
+    .info-box {
+        display: flex;
+        align-items: center;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+        transition: transform 0.3s, box-shadow 0.3s;
+        transform-style: preserve-3d;
+        perspective: 1000px;
+    }
+    .info-box:hover {
+        transform: rotateY(10deg) rotateX(10deg);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+    .info-box .icon {
+        font-size: 2rem;
+        color: #667eea;
+        margin-right: 20px;
+    }
+    .info-box .info-content {
+        flex-grow: 1;
+    }
+    .info-box .info-content h4 {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: bold;
+        transform-style: preserve-3d;
+        perspective: 500px;
+        transition: transform 0.5s;
+    }
+    .info-box .info-content h4:hover {
+        transform: rotateY(-10deg) rotateX(-10deg);
+    }
+    .info-box .info-content p {
+        margin: 0;
+        color: #6c757d;
+    }
+    .progress-circle {
+        width: 120px;
+        height: 120px;
+        position: relative;
+        display: inline-block;
+    }
+    .circle-bg, .circle {
+        fill: none;
+        stroke-width: 4;
+        stroke-linecap: round;
+    }
+    .circle-bg {
+        stroke: #3e3e3e;
+    }
+    .circle {
+        transform: rotate(-90deg);
+        transform-origin: 50% 50%;
+        stroke-dasharray: 113;
+        stroke-dashoffset: 113;
+        transition: stroke-dashoffset 1s ease-out;
+    }
+    .circle-html { stroke: #FF6347; } /* Red for active tickets */
+    .circle-css { stroke: #32CD32; } /* Green for closed tickets */
+    .circle-js { stroke: #2610b5; } /* Magenta for total tickets */
+    .percentage {
+        font-size: 0.7em;
+        text-anchor: middle;
+        fill: #000000;
+        font-weight: bold;
+        transform: translateY(0.1em);
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        left: 0;
+        top: 50%;
+    }
+    .ticket-title1,
+    .ticket-title2,
+    .ticket-title3 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: #667eea;
+        margin-top: 0.3rem;
+        transition: color 0.3s ease;
+    }
+    .ticket-title1:hover,
+    .ticket-title2:hover,
+    .ticket-title3:hover {
+        color: #3a8fb4;
+    }
+    .notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 300px;
+        background-color: #44cb22;
+        color: white;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+        display: none;
+    }
+    .notification.show {
+        display: block;
+        animation: slideInRight 0.5s, fadeOut 0.5s 2.5s;
+    }
+    @keyframes slideInRight {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    @keyframes fadeOut {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+        }
+    }
+</style>
+
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <div class="dashboard-header" data-aos="fade-down">
+                <h1 class="dashboard-title">
+                    <i class="fas fa-user icon"></i> Tableau de bord de l'utilisateur
+                </h1>
+                <a href="{% url 'create-ticket' %}" class="btn btn-primary mt-3">
+                    <i class="fas fa-plus me-2"></i> Créer un nouveau Ticket
+                </a>
+            </div>
+            <div class="info-box" data-aos="fade-right">
+                <div class="icon"><i class="fas fa-clock"></i></div>
+                <div class="info-content">
+                    <h4>Horloge</h4>
+                    <div id="live-clock" class="clock"></div>
+                </div>
+            </div>
+            <div class="info-box" data-aos="fade-right">
+                <div class="icon"><i class="fas fa-cloud-sun"></i></div>
+                <div class="info-content">
+                    <h4>Météo</h4>
+                    <div id="weather-container">
+                        <h4>Tunis</h4>
+                        <p>Ensoleillé</p>
+                        <p>24°C</p>
+                        <p>Humidité: 50%</p>
+                    </div>
+                </div>
+            </div>
+            <div class="info-box" data-aos="fade-right">
+                <div class="icon"><i class="fas fa-calendar-alt"></i></div>
+                <div class="info-content">
+                    <h4>Calendrier</h4>
+                    <div id="calendar-container">
+                        <div id="calendar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="card" data-aos="fade-left">
+                <div class="card-header">
+                    <i class="fas fa-chart-bar"></i> Statistiques
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="ticket-box text-center">
+                                <svg class="progress-circle" viewBox="0 0 36 36">
+                                    <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#3e3e3e" stroke-width="2.5"/>
+                                    <path class="circle circle-html" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" stroke-dasharray="100" stroke-dashoffset="100" data-percentage="{{ active_tickets }}">
+                                    </path>
+                                    <text x="18" y="20" class="percentage" fill="#fff">{{ active_tickets }}%</text>
+                                </svg>
+                                <h2 class="ticket-title1">Tickets en attente</h2>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="ticket-box text-center">
+                                <svg class="progress-circle" viewBox="0 0 36 36">
+                                    <path class="circle-bg"
+                                          d="M18 2.0845
+                                             a 15.9155 15.9155 0 0 1 0 31.831
+                                             a 15.9155 15.9155 0 0 1 0 -31.831"
+                                          fill="none" stroke="#3e3e3e" stroke-width="2.5"/>
+                                    <path class="circle circle-css"
+                                          d="M18 2.0845
+                                             a 15.9155 15.9155 0 0 1 0 31.831
+                                             a 15.9155 15.9155 0 0 1 0 -31.831"
+                                          data-percentage="{{ closed_tickets }}">
+                                    </path>
+                                    <text x="18" y="18" class="percentage">{{ closed_tickets }}%</text>
+                                </svg>
+                                <h2 class="ticket-title2">Tickets Fermés</h2>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="ticket-box text-center">
+                                <svg class="progress-circle" viewBox="0 0 36 36">
+                                    <path class="circle-bg"
+                                          d="M18 2.0845
+                                             a 15.9155 15.9155 0 0 1 0 31.831
+                                             a 15.9155 15.9155 0 0 1 0 -31.831"
+                                          fill="none" stroke="#3e3e3e" stroke-width="2.5"/>
+                                    <path class="circle circle-js"
+                                          d="M18 2.0845
+                                             a 15.9155 15.9155 0 0 1 0 31.831
+                                             a 15.9155 15.9155 0 0 1 0 -31.831"
+                                          data-percentage="{{ tickets }}">
+                                    </path>
+                                    <text x="18" y="18" class="percentage">{{ tickets }}%</text>
+                                </svg>
+                                <h2 class="ticket-title3">Total des tickets</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mt-4" data-aos="fade-up">
+                <div class="card-header">
+                    <i class="fas fa-map-marker-alt"></i> Localisation
+                </div>
+                <div class="card-body">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="notification" class="notification">
+    <strong>Tickets Résolus</strong>
+    {% for ticket in resolved_tickets %}
+    <div class="notification-ticket">
+        <p><strong>Ticket {{ forloop.counter }}</strong></p>
+        <p>Titre: {{ ticket.ticket_title }}</p>
+        <p>Description: {{ ticket.ticket_description }}</p>
+        <p>Résolution:{{ticket.resolution_steps}}</p>
+        
+    </div>
+    {% empty %}
+    <p>Aucun ticket résolu.</p>
+    {% endfor %}
+</div>
+
+<audio id="notification-sound-one" src="{% static 'audio/resolu.mp3' %}" preload="auto"></audio>
+<audio id="notification-sound-multiple" src="{% static 'audio/resolus.mp3' %}" preload="auto"></audio>
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var resolvedTickets = {{ resolved_tickets|length }};
+        console.log('Resolved tickets:', resolvedTickets); // Debugging
+
+        var notification = document.getElementById('notification');
+        var soundOne = document.getElementById('notification-sound-one');
+        var soundMultiple = document.getElementById('notification-sound-multiple');
+
+        if (resolvedTickets > 0) {
+            notification.classList.add('show');
+
+            if (resolvedTickets === 1) {
+                soundOne.play().then(() => {
+                    console.log('One ticket sound played successfully'); // Debugging
+                }).catch(function(error) {
+                    console.error('Error playing one ticket sound:', error);
+                });
+            } else {
+                soundMultiple.play().then(() => {
+                    console.log('Multiple tickets sound played successfully'); // Debugging
+                }).catch(function(error) {
+                    console.error('Error playing multiple tickets sound:', error);
+                });
+            }
+
+            setTimeout(function() {
+                notification.classList.remove('show');
+            }, 5000); // Change to desired duration
+        } else {
+            console.log('No resolved tickets'); // Debugging
+        }
+
+        document.querySelectorAll('.progress-circle .circle').forEach(circle => {
+            let percentage = parseFloat(circle.getAttribute('data-percentage'));
+            let circumference = Math.PI * (36 / 2) * 2;
+            let offset = circumference - (percentage / 100 * circumference);
+            circle.style.strokeDasharray = circumference;
+            circle.style.strokeDashoffset = offset;
+        });
+
+        // Horloge en temps réel
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            const timeString = `${hours}:${minutes}:${seconds}`;
+            document.getElementById('live-clock').textContent = timeString;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Calendrier
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            events: [
+                {
+                    title: 'Event 1',
+                    start: '2024-06-01'
+                },
+                {
+                    title: 'Event 2',
+                    start: '2024-06-07',
+                    end: '2024-06-10'
+                },
+                {
+                    title: 'Event 3',
+                    start: '2024-06-09T12:30:00',
+                }
+            ]
+        });
+        calendar.render();
+
+        // Localisation
+        var map = L.map('map').setView([36.8065, 10.1815], 13); // Coordonées de Tunis
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        L.marker([36.8065, 10.1815]).addTo(map) // Coordonées de Tunis
+            .bindPopup('Tunis')
+            .openPopup();
+
+        // Initialiser AOS
+        AOS.init();
+    });
+</script>
+
+{% endblock content %}

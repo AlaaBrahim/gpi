@@ -1,0 +1,255 @@
+{% load static %}
+
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>Ajouter un hôte</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f4f7fc;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #a7b6fb, #d1b7eb);
+        }
+
+        .content {
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            animation: fadeInContent 1s ease forwards;
+        }
+
+        header {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #764ba2;
+            animation: slideInHeader 1s ease forwards;
+        }
+
+        img {
+            width: 80px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        img:hover {
+            transform: rotate(360deg);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .field {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            width: 100%;
+            animation: fadeInField 1s ease forwards;
+        }
+
+        .field span {
+            margin-right: 10px;
+            font-size: 1.5em;
+            color: #764ba2;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #764ba2;
+            border-radius: 10px;
+            outline: none;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+        }
+
+        button {
+            background: #764ba2;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+            animation: fadeInButton 1.2s ease forwards;
+        }
+
+        button:hover {
+            background: #667eea;
+            transform: translateY(-3px);
+        }
+
+        .link {
+            margin-top: 20px;
+            animation: fadeInLink 1.4s ease forwards;
+        }
+
+        .link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .link a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes fadeInContent {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInHeader {
+            from { opacity: 0; transform: translateX(-100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes fadeInField {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInButton {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInLink {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <header>Ajouter un hôte</header>
+        <img src="{% static 'assets/zabbix.png' %}" alt="Logo Zabbix">
+        <form id="addHostForm">
+            <div class="field">
+                <span><i class="fas fa-hdd"></i></span> 
+                <input type="text" id="hostname" name="hostname" placeholder="Nom de l'hôte" required>
+            </div>
+            <div class="field space">
+                <span><i class="fas fa-network-wired"></i></span> 
+                <input type="text" id="ipAddress" name="ipAddress" placeholder="Adresse IP" required>
+            </div>
+            <button type="submit" name="button">Ajouter Hôte</button>
+            <div class="link">
+                <a href="{% url 'test' %}">Retour à la page d'accueil</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const apiUrl = 'http://192.168.1.14/api_jsonrpc.php';
+        const zabbixUsername = 'Admin';
+        const zabbixPassword = 'zabbix';
+
+        async function authenticate() {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    jsonrpc: '2.0',
+                    method: 'user.login',
+                    params: {
+                        user: zabbixUsername,
+                        password: zabbixPassword
+                    },
+                    id: 1,
+                    auth: null
+                })
+            });
+            const data = await response.json();
+            return data.result;
+        }
+
+        async function addHost(authToken, hostname, ipAddress) {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    jsonrpc: '2.0',
+                    method: 'host.create',
+                    params: {
+                        host: hostname,
+                        interfaces: [
+                            {
+                                type: 1,
+                                main: 1,
+                                useip: 1,
+                                ip: ipAddress,
+                                dns: '',
+                                port: '10050'
+                            }
+                        ],
+                        groups: [
+                            {
+                                groupid: '2'
+                            }
+                        ],
+                    },
+                    'auth': 'e6ad880c24f125029f75fb9692ddb57a837ecdf58d93724a762d058ad50adccd',
+                    id: 1
+                })
+            });
+            const data = await response.json();
+            return data;
+        }
+
+        document.getElementById('addHostForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const hostname = document.getElementById('hostname').value;
+            const ipAddress = document.getElementById('ipAddress').value;
+            const authToken = await authenticate();
+
+            const result = await addHost(authToken, hostname, ipAddress);
+            
+            if (result.error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur!',
+                    text: `Échec de l'ajout de l'hôte: ${result.error.message}`,
+                    confirmButtonText: 'OK',
+                });
+            } else {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Succès!',
+                    text: 'Hôte ajouté avec succès!',
+                    confirmButtonText: 'OK',
+                }).then(() => {
+                    window.location.href = "{% url 'test' %}";
+                });
+            }
+        });
+    </script>
+</body>
+</html>

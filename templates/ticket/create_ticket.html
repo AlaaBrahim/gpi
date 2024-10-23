@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<style>
+     .back-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+</style>
+<div class="container col-xl-12 col-xxl-10 px-4 py-5">
+    <div class="row align-items-center g-lg-5 py-5">
+        <div class="col-lg-6 text-center text-lg-start">
+            <div class="h-100">
+                <img src="{% static 'assets/it.png' %}" class="card-img-top" alt="Creation" style="max-width: 500px;">
+            </div>
+        </div>
+        <div class="col-md-10 mx-auto col-lg-6">
+            <h2 id="createTicketText" class="display-6 fw-bold lh-1 mb-3 text-center" style="font-family: cursive; font-style: italic;">Créer un nouveau Ticket <i class="fas fa-ticket-alt"></i></h2>
+            <form class="ticket-form" method="POST">
+                {% csrf_token %}
+                <div class="form-floating mb-3">
+                    {% render_field form.ticket_title class="form-control" %}
+                    <label for="floatingInput"> Titre de Ticket <i class="fas fa-heading"></i></label>
+                </div>
+                <div class="form-floating mb-3">
+                    {% render_field form.ticket_description class="form-control" %}
+                    <label for="floatingPassword">Parlez-nous-en davantage sur le problème... <i class="fas fa-comment"></i></label>
+                </div>
+                <button class="w-100 btn btn-lg btn-primary submit-button" type="submit">Soumettre <i class="fas fa-paper-plane"></i></button>
+              
+            </form>
+        </div>
+    </div>
+    
+</div>
+<a href="/" class="back-button"><i class="fas fa-arrow-left"></i> Retour à l'accueil</a>
+<script>
+    // Function to toggle theme
+    function toggleTheme() {
+        const themeToggle = document.querySelector('#theme-toggle');
+        document.body.classList.toggle('dark-mode');
+    }
+
+    // Function to dynamically change the Create Ticket text
+    function updateCreateTicketText() {
+        const createTicketText = document.getElementById('createTicketText');
+        createTicketText.textContent = 'Create Dynamic Ticket'; // Change the text here dynamically
+    }
+
+    // Add event listener to toggle theme button
+    const themeToggle = document.querySelector('#theme-toggle');
+    themeToggle.addEventListener('click', toggleTheme);
+
+    // Call the function to update the Create Ticket text dynamically
+    updateCreateTicketText();
+</script>
+<style>
+    /* Styles for dark mode */
+    .dark-mode {
+        background-color: #222;
+        color: #fff;
+    }
+
+    .dark-mode .bg-light {
+        background-color: #333;
+    }
+
+    .dark-mode .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .dark-mode .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+    .transition {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+</style>
+{% endblock content %}

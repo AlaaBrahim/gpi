@@ -1,0 +1,258 @@
+{% extends 'accounts/base.html' %}
+{% block heading %}
+{% endblock heading %}
+{% block content %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="./style.css">
+    <!-- Ajoutez le lien vers la bibliothèque Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .alert {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="signin">
+        <div class="content">
+            <h2>Bienvenue</h2>
+            <form classs="" method="POST">
+                {% csrf_token %}
+                <div class="form">
+                    <div class="box center">
+                        <div class="login">
+                            <div class="loginBx">
+                                <h2> <i class="fas fa-sign-in-alt"></i>GPI</h2>
+                                <div class="inputBox">
+                                    <i class="far fa-envelope"></i>
+                                    <input type="email" name="username" class="form-control" id="floatingInput" placeholder="Adresse email">
+                                </div>
+                                <div class="inputBox">
+                                    <i class="fas fa-lock"></i>
+                                    <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Mot de passe">
+                                </div>
+                                <div class="group">
+                                    <input type="submit" value="Se connecter">
+                                </div>
+                                <div>
+                                    <a href="{% url 'register-customer' %}">S'inscrire</a>
+                                </div>
+                            </div>
+                            <div>
+                                <a class="mx-4" href="{% url 'password_reset' %}">Mot de passe oublié</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+<style> 
+
+@import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins' , sans-serif;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #25252b;
+    height: 100%;
+    
+
+}
+
+
+
+@property --a {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0deg;
+}
+
+.box {
+    position: relative;
+    width: 400px;
+    height: 200px;
+    background: repeating-conic-gradient(from var(--a),#ff2770 0%, #ff2770 5%,transparent 5%,transparent 40%,#ff2770 50%);
+    filter: drop-shadow(0 15px 50px #000);
+    border-radius: 20px;
+    animation: rotating 4s linear infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s;
+
+}
+.box:hover
+ {
+    width: 400px;
+    height: 500px;
+ }
+@keyframes rotating
+{
+    0%
+{
+  --a: 0deg;
+}
+ 100%
+ {
+    --a: 360deg;
+
+ }
+}
+ .box::before
+{
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: repeating-conic-gradient(from var(--a),#45f3ff 0%, #45f3ff 5%,transparent 5%,transparent 40%,#45f3ff 50%);
+  filter: drop-shadow(0 15px 50px #000);
+  border-radius: 20px;
+  animation: rotating 4s linear infinite;
+  animation-delay: -1s;
+
+}
+.box::after{
+    content: '';
+    position: absolute;
+    inset: 4px;
+    background: #2d2d39;
+    border-radius: 15px;
+    border: 8px solid #25252b;
+} 
+
+.login
+{
+    position: absolute;
+    inset: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 10px;
+    background: rgba(0,0,0,0.2);
+    z-index: 1000;
+    box-shadow: inset 0 10px 20px rgba(0,0,0,0.5);
+    border-bottom: 2px solid rgba(255,255,255,0.5);
+    transition: 0.5s;
+    color: #fff;
+    overflow: hidden;
+}
+
+.box:hover .login
+{
+    inset: 40px;
+}
+
+.loginBx{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+    width: 70%;
+    transform: translateY(140px);
+    transition: 0.5s;
+
+}
+.box:hover .loginBx
+{
+    transform: translateY(0px);
+}
+.loginBx h2{
+
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+
+}
+
+.loginBx h2 i {
+    color:#ff2770;
+    text-shadow: 0 0 5px #ff2770, 0 0 25px #ff2770;
+
+
+}
+.loginBx input 
+{
+    width: 100%;
+    padding:10px 20px;
+    outline: none;
+    font-size: 1em;
+    color: #fff;
+    background: rgba(0,0,0,0.1);
+    border:2px solid #fff;
+    border-radius: 30px
+
+}
+
+.loginBx input::placeholder
+{
+    color:#999;
+
+}
+
+.loginBx input[type="submit"]
+{
+    background: #45f3ff;
+    border: none;
+    font-weight: 500;
+    color: #111;
+    cursor: pointer;
+    transition: 0.5s;
+
+}
+
+.loginBx input[type="submit"]:hover{
+    box-shadow: 0 0 10px #45f3ff,
+    0 0 60px #45f3ff;
+}
+.group { 
+    width:100%;
+    display: flex;
+    justify-content: space-between;
+}
+.group a 
+{ 
+    color: #fff;
+    text-decoration: none;
+
+}
+.group a:nth-child(2)
+{
+    color: #ff2770;
+    font-weight: 600;
+}
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+</style>
+
+{% endblock content %}

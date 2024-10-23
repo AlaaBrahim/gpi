@@ -1,0 +1,279 @@
+{% extends "materiels/base.html" %}
+{% load static %}
+{% block body %}
+
+{% csrf_token %}
+
+<div class="row">
+  <div class="col-12">
+    {% if materiels %}
+      <div class="card-body">
+        <p class="card-text">
+          <div class="table-responsive">
+            <table class="table table-hover table-bordered table-striped">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">Services</th>
+                  <th scope="col">NOM_Prénom</th>
+                  <th scope="col">Nom_du_compte</th>
+                  <th scope="col">Mot_de_passe</th>
+                  <th scope="col">NOM_MACHINE_actuel</th>
+                  <th scope="col">Type_machine</th>
+                  <th scope="col">ram_installé</th>
+                  <th scope="col">carte_graphique</th>
+                  <th scope="col">Emplacement</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for materiel in materiels %}
+                  <tr class="animate__animated animate__fadeIn animate__delay-{{ forloop.counter }}s">
+                    <td>{{ materiel.Services }}</td>
+                    <td>{{ materiel.NOM_Prénom }}</td>
+                    <td>{{ materiel.Nom_du_compte }}</td>
+                    <td>{{ materiel.Mot_de_passe }}</td>
+                    <td>{{ materiel.NOM_MACHINE_actuel }}</td>
+                    <td>{{ materiel.Type_machine }}</td>
+                    <td>{{ materiel.ram_installé }}</td>
+                    <td>{{ materiel.Carte_graphique }}</td>
+                    <td>{{ materiel.Emplacement }}</td>
+                    <td>
+                      <div class="d-flex justify-content-around">
+                        <button type="button" class="btn btn-success me-1 ripple" data-bs-toggle="modal" data-bs-target="#viewModal{{ materiel.id }}">
+                          <i class="fa-solid fa-circle-info fa-lg"></i>
+                        </button>
+
+                        <!-- Modal - View Materiel -->
+                        <div class="modal fade" id="viewModal{{ materiel.id }}" tabindex="-1" aria-labelledby="viewModalLabel{{ materiel.id }}" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered modal-dialog-zoom">
+                            <div class="modal-content shadow-lg p-3 mb-5 bg-white rounded animate__animated animate__fadeInDown animate__faster">
+                              <div class="modal-header bg-primary text-white gradient-bg border-0">
+                                <h5 class="modal-title" id="viewModalLabel{{ materiel.id }}">
+                                  <i class="fa-solid fa-info-circle"></i> Materiel: {{ materiel.Services }} {{ materiel.Nom_du_compte }}
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <ul class="list-unstyled">
+                                  <li><strong>Services:</strong> {{ materiel.Services }}</li>
+                                  <li><strong>NOM_Prénom:</strong> {{ materiel.NOM_Prénom }}</li>
+                                  <li><strong>Nom_du_compte:</strong> {{ materiel.Nom_du_compte }}</li>
+                                  <li><strong>Mot_de_passe:</strong> {{ materiel.Mot_de_passe }}</li>
+                                  <li><strong>NOM_MACHINE_actuel:</strong> {{ materiel.NOM_MACHINE_actuel }}</li>
+                                  <li><strong>Type_machine:</strong> {{ materiel.Type_machine }}</li>
+                                  <li><strong>ram_installé:</strong> {{ materiel.ram_installé }}</li>
+                                  <li><strong>Carte_graphique:</strong> {{ materiel.Carte_graphique }}</li>
+                                  <li><strong>Emplacement:</strong> {{ materiel.Emplacement }}</li>
+                                </ul>
+                              </div>
+                              <div class="modal-footer border-0">
+                                <button type="button" class="btn btn-secondary ripple" data-bs-dismiss="modal">Fermer</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <a class="btn btn-warning me-1 ripple" href="{% url 'edit' materiel.id %}">
+                          <i class="fa-solid fa-pen-to-square fa-lg"></i>
+                        </a>
+                        <button type="button" class="btn btn-danger ripple" data-bs-toggle="modal" data-bs-target="#deleteModal{{ materiel.id }}">
+                          <i class="fa-solid fa-trash-can fa-lg"></i>
+                        </button>
+
+                        <!-- Modal - Delete Materiel -->
+                        <div class="modal fade" id="deleteModal{{ materiel.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ materiel.id }}" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered modal-dialog-zoom">
+                            <div class="modal-content shadow-lg p-3 mb-5 bg-white rounded animate__animated animate__fadeInDown animate__faster">
+                              <div class="modal-header bg-danger text-white gradient-bg border-0">
+                                <h5 class="modal-title" id="deleteModalLabel{{ materiel.id }}">
+                                  <i class="fa-solid fa-exclamation-circle"></i> Supprimer Materiel: {{ materiel.Services }} {{ materiel.Carte_graphique }}
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <p>Êtes-vous sûr de vouloir supprimer ce matériel ?</p>
+                              </div>
+                              <div class="modal-footer border-0">
+                                <form action="{% url 'delete' materiel.id %}" method="POST">
+                                  {% csrf_token %}
+                                  <input type="submit" class="btn btn-primary ripple" value="Supprimer">
+                                </form>
+                                <button type="button" class="btn btn-secondary ripple" data-bs-dismiss="modal">Annuler</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </p>
+      </div>
+    </div>
+    {% else %}
+      <h5 class="alert alert-primary ms-4 me-4 animate__animated animate__fadeIn">Aucun dossier de matériel</h5>
+    {% endif %}
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    filterServices(); // Initialize filtering on load
+  });
+
+  function filterServices() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("serviceFilter");
+    filter = input.value.toUpperCase();
+    table = document.getElementsByTagName("table")[0];
+    tr = table.getElementsByTagName("tr");
+
+    for (i = 1; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];  // Index 0 for the first column 'Services'
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (filter === "" || txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      } 
+    }
+  }
+</script>
+
+{% endblock %}
+
+<style>
+    body {
+        background-color: #f4f7fc;
+        font-family: 'Roboto', sans-serif;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+    .card {
+        border-radius: 15px;
+        box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .card:hover {
+        transform: rotateY(10deg) rotateX(10deg);
+        box-shadow: 0 25px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    .table {
+        border-collapse: separate;
+        border-spacing: 0 15px;
+    }
+
+    .table thead th {
+        border-top: none;
+    }
+
+    .table th, .table td {
+        border: none;
+        border-bottom: 1px solid #dee2e6;
+        padding: 12px 15px;
+        background: #fff;
+        transition: background 0.3s ease-in-out;
+    }
+
+    .table th {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: #fff;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f1f1f1;
+        transform: scale(1.02);
+        transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .btn {
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .btn:hover {
+        transform: translateY(-3px);
+    }
+
+    .modal-dialog-zoom {
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .modal-dialog-zoom:hover {
+        transform: scale(1.02);
+    }
+
+    .modal-content {
+        border-radius: 15px;
+        box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .modal-header, .modal-footer {
+        border: none;
+    }
+
+    .modal-header {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+    }
+
+    .modal-header.bg-danger {
+        background: linear-gradient(135deg, #e3342f, #f0506e);
+    }
+
+    .modal-content:hover {
+        transform: rotateY(10deg) rotateX(10deg);
+        box-shadow: 0 25px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    .ripple {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .ripple:after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        background-image: radial-gradient(circle, rgba(255, 255, 255, 0.4) 10%, transparent 10.01%);
+        background-repeat: no-repeat;
+        background-position: 50%;
+        transform: scale(10, 10);
+        opacity: 0;
+        transition: transform 0.5s, opacity 1s;
+    }
+
+    .ripple:active:after {
+        transform: scale(0, 0);
+        opacity: 0.3;
+        transition: 0s;
+    }
+
+    .gradient-bg {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+    }
+
+    .btn-close {
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 50%;
+        padding: 0.5rem;
+        transition: background 0.3s ease-in-out;
+    }
+
+    .btn-close:hover {
+        background: rgba(255, 255, 255, 1);
+    }
+</style>

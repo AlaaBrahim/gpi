@@ -1,0 +1,291 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Import Font Awesome, animate.css for animations, and jQuery for dynamic effects -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<style>
+    body {
+        background-color: #f0f0f0; /* Light gray background */
+        font-family: 'Arial', sans-serif;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .row {
+        background: linear-gradient(to right, #ffffff, #f0f0f0); /* Gradient background */
+        border-radius: 60px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+        padding: 50px;
+        transition: all 0.5s ease;
+        width: 95%; /* Responsive width */
+        align-items: center;
+        margin: 50px auto;
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    .row:hover {
+        transform: scale(1.03);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .card {
+        border-radius: 20px;
+        background: #ffffff;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.5s ease;
+        overflow: hidden;
+        padding: 20px;
+        margin: 20px 0;
+        max-width: 95%;
+        animation: slideInUp 1s ease-in-out;
+    }
+
+    .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-body {
+        padding: 30px;
+        transition: background-color 0.5s ease;
+    }
+
+    .icon-list i {
+        font-size: 1.5em;
+        width: 40px;
+        color: #007bff;
+        transition: transform 0.3s ease;
+    }
+
+    .icon-list i:hover {
+        transform: rotate(360deg);
+        color: #b80c0c;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        padding: 10px 20px;
+        border-radius: 8px;
+        color: white;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        transform: scale(1.05) rotateY(360deg);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-close:hover {
+        color: #f44336;
+        transform: rotate(180deg);
+    }
+
+    .modal-content {
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .modal-content:hover {
+        transform: scale(1.02);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-header {
+        background-color: #007bff;
+        color: white;
+        border-bottom: 2px solid #0056b3;
+        border-radius: 15px 15px 0 0;
+    }
+
+    .modal-header .modal-title i {
+        margin-right: 10px;
+    }
+
+    .btn-close {
+        filter: invert(1);
+    }
+
+    .modal-body {
+        padding: 30px;
+        background: linear-gradient(to right, #f0f2f5, #cfd9df);
+    }
+
+    .form-label {
+        color: #0056b3;
+        font-weight: bold;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        transition: border-color 0.3s ease-in-out;
+    }
+
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: none;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 10px;
+        color: white;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        transform: scale(1.05) rotateY(360deg);
+        box-shadow: 0 6px 12px rgba(0, 123, 255, 0.4);
+    }
+
+    .btn-primary i {
+        margin-right: 8px;
+    }
+
+    .wait-icon {
+        animation: spin 2s infinite linear;
+    }
+
+    @keyframes spin {
+        from {
+            transform: rotateY(0deg);
+        }
+        to {
+            transform: rotateY(360deg);
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideInUp {
+        from {
+            transform: translateY(100%);
+        }
+        to {
+            transform: translateY(0);
+        }
+    }
+
+    .back-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+         
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+   
+</style>
+
+<div class="row animate__animated animate__fadeIn">
+    <div class="col-md-8">
+        <h1 class="display-6 fw-bold">Titre:{{ ticket.ticket_title }}</h1>
+        <p>Descriptions:{{ ticket.ticket_description }}</p>
+        {% if ticket.is_resolved %}
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Résolution</h4>
+                <p>{{ ticket.resolution_steps }}</p>
+                <li><i class="fas fa-calendar-alt"></i> Résolu à: {{ ticket.last_modified|date:"d M Y, H:i" }}</li>
+            </div>
+        {% endif %}
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow animate__animated animate__flipInY">
+            <div class="card-body">
+                <h2>Informations rapides</h2>
+                <ul class="icon-list">
+                    <li><i class="fas fa-ticket-alt"></i> Ticket ID: {{ ticket.ticket_id }}</li>
+                    <li><i class="fas fa-user"></i> Client: {{ ticket.customer }}</li>
+                    <li><i class="fas fa-calendar-alt"></i> Créé à: {{ ticket.created_on|date:"d M Y, H:i" }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+
+
+{% if request.user.is_engineer %}
+    <div class="btn-container">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <i class="fas fa-wrench"></i> Résoudre le Ticket
+        </button>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                            <i class="fas fa-ticket-alt"></i> Résoudre le Ticket
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{% url 'resolve-ticket' ticket.ticket_id %}" method="POST">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="exampleFormControlTextarea1" class="form-label">
+                                    <i class="fas fa-pencil-alt"></i> Description de la résolution
+                                </label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="rs"></textarea>
+                            </div>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-save"></i> Enregistrer
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% if not ticket.is_resolved and request.user.is_staff %}
+    <div class="btn-container">
+        <form action="{% url 'send_reclamation' ticket.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-warning">
+                <i class="fas fa-exclamation-triangle"></i> Envoyer une Réclamation
+            </button>
+        </form>
+
+    </div>
+{% endif %}
+
+
+<a href="/" class="back-button"><i class="fas fa-arrow-left" style="margin-top: 20px;"></i> Retour à l'accueil</a>
+
+<script>
+$(document).ready(function() {
+    $(".btn-primary").hover(
+        function() {
+            $(this).addClass('animate__animated animate__pulse');
+        },
+        function() {
+            $(this).removeClass('animate__animated animate__pulse');
+        }
+    );
+});
+</script>
+{% endblock %}

@@ -1,0 +1,503 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+    <!-- CSS Links -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css"/>
+
+    <!-- JS Links -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Roboto', sans-serif;
+            color: #343a40;
+            perspective: 1000px;
+        }
+        .container {
+            margin-top: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .dashboard-header {
+            background: linear-gradient(135deg, #a66ce3, #4a80df);
+            color: #fff;
+            padding: 5px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.5s;
+        }
+        .dashboard-header:hover {
+            transform: rotateY(10deg);
+        }
+        .dashboard-header img {
+            margin-right: 20px;
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+        .card, .info-box {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            margin-bottom: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        .card:hover, .info-box:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        .card-header, .info-box .icon {
+            background: linear-gradient(135deg, #6a47e9, #8f44fd);
+            color: #fff;
+            padding: 10px;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        .card-body, .info-box .info-content {
+            padding: 20px;
+        }
+        .chart-container, #map {
+            height: 300px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .chart-container:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        .chart-container canvas {
+            max-height: 100%;
+        }
+        .btn-primary {
+            background-color: #6a11cb;
+            border-color: #6a11cb;
+            transition: background-color 0.3s, border-color 0.3s, transform 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #5a0eb9;
+            border-color: #5a0eb9;
+            transform: scale(1.1);
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+        .table th, .table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        .table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        .animated-header {
+            animation: slideInDown 1s ease-out;
+        }
+        .animated-card {
+            animation: fadeInUp 1s ease-out;
+        }
+        @keyframes slideInDown {
+            0% {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1);
+            }
+        }
+        @keyframes fadeInUp {
+            0% {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .info-box .icon i {
+            font-size: 2.5rem;
+        }
+        #calendar {
+            height: 200px;
+            margin-top: 20px;
+        }
+        .info-box .icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .info-box .info-content {
+            text-align: center;
+        }
+        .info-box a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .clock {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #6a11cb;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .info-box .clock-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .info-box .clock {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #6a11cb;
+            margin-top: 10px;
+        }
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .card-header, .card-body {
+            text-align: center;
+        }
+        .info-box .info-content h4 {
+            margin-bottom: 0.5rem;
+            color: #343a40;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .card {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+        }
+        .card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        .info-box {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+        }
+        .info-box:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        .chart-container {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        .chart-container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        .chartjs-render-monitor {
+            animation: chartFadeIn 1.5s ease-in-out;
+        }
+        @keyframes chartFadeIn {
+             0% {
+                 opacity: 0;
+                 transform: translateY(10px);
+             }
+             100% {
+                 opacity: 1;
+                 transform: translateY(0);
+             }
+         }
+    </style>
+
+    <!-- HTML Structure -->
+    <div class="container">
+        <div class="dashboard-header animated-header">
+            <img src="{% static 'assets/min.jpg' %}" alt="" style="background-color: #5a0eb9;" width="300px">
+            Tableau de bord d'administration
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="info-box animated-card">
+                    <div class="icon"><i class="fas fa-clock"></i></div>
+                    <div class="info-content clock-container">
+                        <h4>Horloge</h4>
+                        <div id="live-clock" class="clock"></div>
+                    </div>
+                </div>
+                <div class="info-box animated-card">
+                    <div class="icon"><i class="fas fa-cloud-sun"></i></div>
+                    <div class="info-content">
+                        <h4>Météo</h4>
+                    <div id="weather-container">
+                        <h4>Tunis</h4>
+                        <p>Ensoleillé</p>
+                        <p>24°C</p>
+                        <p>Humidité: 50%</p>
+                    </div>
+                    </div>
+                </div>
+                <div class="info-box" data-aos="fade-right">
+                    <div class="icon"><i class="fas fa-calendar-alt"></i></div>
+                    <div class="info-content">
+                        <h4>Calendrier</h4>
+                        <div id="calendar-container">
+                            <div id="calendar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="card animated-card">
+                    <div class="card-header">Statistiques</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a href="{% url 'issue-history' %}">
+                                    <div class="info-box animated-card">
+                                        <div class="icon"><i class="fas fa-ticket-alt"></i></div>
+                                        <div class="info-content">
+                                            <h4>Suivre l
+                                                ’état des tickets</h4>
+                                            <p>{{ tickets }}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="{% url 'user_list' %}">
+                                    <div class="info-box animated-card">
+                                        <div class="icon"><i class="fas fa-users"></i></div>
+                                        <div class="info-content">
+                                            <h4>Membres</h4>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="chart-container mt-4">
+                            <canvas id="ticketStatusChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-4 animated-card">
+                    <div class="card-header">Localisation</div>
+                    <div class="card-body">
+                        <div id="map"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Horloge en temps réel
+            function updateClock() {
+                const now = new Date();
+                const hours = now.getHours().toString().padStart(2, '0');
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                const seconds = now.getSeconds().toString().padStart(2, '0');
+                const timeString = `${hours}:${minutes}:${seconds}`;
+                document.getElementById('live-clock').textContent = timeString;
+            }
+            setInterval(updateClock, 1000);
+            updateClock();
+
+            // Graphique des tickets
+            var ctx = document.getElementById('ticketStatusChart').getContext('2d');
+
+            var gradientPending = ctx.createLinearGradient(0, 0, 0, 400);
+            gradientPending.addColorStop(0, 'rgba(194, 160, 231, 1)');
+            gradientPending.addColorStop(1, 'rgba(74, 128, 223, 0.3)');
+
+            var gradientResolved = ctx.createLinearGradient(0, 0, 0, 400);
+            gradientResolved.addColorStop(0, 'rgba(255, 99, 132, 1)');
+            gradientResolved.addColorStop(1, 'rgba(255, 159, 64, 0.3)');
+
+            var shadowPlugin = {
+                id: 'shadowPlugin',
+                beforeDatasetsDraw: function(chart, easing) {
+                    chart.ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+                    chart.ctx.shadowBlur = 20;
+                    chart.ctx.shadowOffsetX = 5;
+                    chart.ctx.shadowOffsetY = 5;
+                },
+                afterDatasetsDraw: function(chart, easing) {
+                    chart.ctx.shadowColor = 'rgba(0, 0, 0, 0)';
+                    chart.ctx.shadowBlur = 0;
+                    chart.ctx.shadowOffsetX = 0;
+                    chart.ctx.shadowOffsetY = 0;
+                }
+            };
+
+            Chart.register(shadowPlugin);
+
+            var ticketStatusChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Tickets en attente', 'Tickets résolus'],
+                    datasets: [
+                        {
+                            label: 'Nombre de tickets',
+                            data: [{{ tickets_pending }}, {{ tickets_resolved }}],
+                            backgroundColor: [gradientPending, gradientResolved],
+                            borderColor: ['#c2a0e7', '#ff6384'],
+                            borderWidth: 1,
+                            borderRadius: 20,
+                            barPercentage: 0.6,
+                            categoryPercentage: 0.6,
+                            hoverBackgroundColor: ['rgba(194, 160, 231, 0.8)', 'rgba(255, 99, 132, 0.8)'],
+                            hoverBorderColor: ['#c2a0e7', '#ff6384']
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            enabled: true,
+                            backgroundColor: '#fff',
+                            titleColor: '#000',
+                            bodyColor: '#000',
+                            borderColor: '#ddd',
+                            borderWidth: 1,
+                            usePointStyle: true,
+                            boxWidth: 8,
+                            cornerRadius: 5,
+                            padding: 10
+                        }
+                    },
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'État des tickets',
+                                color: '#343a40',
+                                font: {
+                                    size: 14,
+                                    family: 'Montserrat'
+                                }
+                            },
+                            ticks: {
+                                color: '#343a40',
+                                font: {
+                                    size: 14,
+                                    family: 'Montserrat'
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(52, 58, 64, 0.1)'
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Nombre de tickets',
+                                color: '#343a40',
+                                font: {
+                                    size: 14,
+                                    family: 'Montserrat'
+                                }
+                            },
+                            ticks: {
+                                color: '#343a40',
+                                font: {
+                                    size: 14,
+                                    family: 'Montserrat'
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(52, 58, 64, 0.1)'
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 2000,
+                        easing: 'easeInOutBounce'
+                    }
+                }
+            });
+
+            // Calendrier
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: [
+                    {
+                        title: 'Event 1',
+                        start: '2024-06-01'
+                    },
+                    {
+                        title: 'Event 2',
+                        start: '2024-06-07',
+                        end: '2024-06-10'
+                    },
+                    {
+                        title: 'Event 3',
+                        start: '2024-06-09T12:30:00',
+                    }
+                ]
+            });
+            calendar.render();
+
+            // Localisation
+            var map = L.map('map').setView([36.8065, 10.1815], 13); // Coordonées de Tunis
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            L.marker([36.8065, 10.1815]).addTo(map) // Coordonées de Tunis
+                .bindPopup('Tunis')
+                .openPopup();
+
+            // Initialiser AOS
+            AOS.init();
+            
+            // Script pour le widget météo
+            !function(d,s,id){
+                var js,fjs=d.getElementsByTagName(s)[0];
+                if(!d.getElementById(id)){
+                    js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';
+                    fjs.parentNode.insertBefore(js,fjs);
+                }
+            }(document,'script','weatherwidget-io-js');
+        });
+    </script>
+{% endblock content %}

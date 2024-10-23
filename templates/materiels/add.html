@@ -1,0 +1,167 @@
+{% extends "materiels/base.html" %}
+{% load static %}
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="text-center mb-4 animate__animated animate__fadeInDown modern-title">Ajouter du matériel</h1>
+            {% if success %}
+                <div class="alert alert-success text-center animate__animated animate__fadeIn modern-alert" role="alert">
+                    <i class="fas fa-check-circle"></i> Les nouveaux matériaux ont été ajoutés avec succès.
+                    <a href="{% url 'index' %}" class="alert-link">Aller à la page d'accueil.</a>
+                </div>
+            {% elif excel_success %}
+                <div class="alert alert-success text-center animate__animated animate__fadeIn modern-alert" role="alert">
+                    <i class="fas fa-check-circle"></i> Fichier Excel importé avec succès.
+                    <a href="{% url 'index' %}" class="alert-link">Aller à la page d'accueil.</a>
+                </div>
+            {% else %}
+                <div class="card shadow-lg p-4 animate__animated animate__zoomIn animate__delay-1s modern-card">
+                    <div class="card-header text-center bg-primary text-white modern-card-header">
+                        Formulaire d'ajout de matériel
+                    </div>
+                    <div class="card-body">
+                        <form action="{% url 'add' %}" method="POST" class="form-container">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ form.as_p }}
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 mt-3 ripple modern-button">
+                                <i class="fas fa-plus-circle"></i> Ajouter
+                            </button>
+                            <a href="{% url 'index' %}" class="btn btn-secondary w-100 mt-2 ripple modern-button">
+                                <i class="fas fa-times-circle"></i> Annuler
+                            </a>
+                        </form>
+                        <hr>
+                        <form action="{% url 'import_excel' %}" method="POST" enctype="multipart/form-data" class="mt-4">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="excel_file" class="form-label">Importer fichier Excel</label>
+                                <input type="file" name="excel_file" id="excel_file" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-success w-100 ripple modern-button">
+                                <i class="fas fa-file-import"></i> Importer
+                            </button>
+                        </form>
+                        <a href="{% url 'export_excel' %}" class="btn btn-primary w-100 mt-2 ripple modern-button">
+                            <i class="fas fa-file-download"></i> Télécharger les matériels en Excel
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<style>
+    .modern-title {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 700;
+        font-size: 2.5rem;
+        color: #333;
+        position: relative;
+        display: inline-block;
+    }
+
+    .modern-title::after {
+        content: '';
+        display: block;
+        width: 50%;
+        height: 5px;
+        background: #007bff;
+        margin: 10px auto 0;
+        border-radius: 5px;
+    }
+
+    .modern-alert {
+        border-radius: 10px;
+        border: 2px solid #28a745;
+        background-color: #d4edda;
+        color: #155724;
+        font-size: 1.25rem;
+        padding: 15px;
+        margin-top: 20px;
+    }
+
+    .modern-card {
+        border: none;
+        border-radius: 15px;
+        background: #f8f9fa;
+        transition: all 0.3s ease;
+    }
+
+    .modern-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .modern-card-header {
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+
+    .form-control {
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    .modern-button {
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        border-radius: 25px;
+    }
+
+    .modern-button::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 300%;
+        height: 300%;
+        background: rgba(255, 255, 255, 0.3);
+        transition: all 0.3s ease;
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    .modern-button:hover::after {
+        opacity: 1;
+        width: 100%;
+        height: 100%;
+    }
+
+    .animate__animated.animate__delay-1s {
+        animation-delay: 1s;
+    }
+
+    .ripple {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .ripple::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 300%;
+        height: 300%;
+        background: rgba(255, 255, 255, 0.3);
+        transition: all 0.3s ease;
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    .ripple:hover::after {
+        opacity: 1;
+        width: 100%;
+        height: 100%;
+    }
+</style>
+{% endblock %}

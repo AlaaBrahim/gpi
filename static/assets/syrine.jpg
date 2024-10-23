@@ -1,0 +1,283 @@
+<!doctype html>
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Importance d’un système de gestion des tickets pour les MSP : cinq raisons pour lesquelles ils ont besoin d’une solution d’assistance pour doper leur activité</title>
+<link rel="canonical" href="https://www.manageengine.com/fr/service-desk-msp/importance-ticketing-system-msp.html">
+<meta name="description" content="Un système de gestion des tickets d’assistance relie le MSP à ses clients. Un MSP gère tellement d’enjeux chaque jour qu’il exige une solution d’assistance offrant bien plus qu’un simple système de tickets de support. Ce guide pour MSP explique l’importance du système de gestion des tickets et les cinq raisons pour lesquelles les MSP ont besoin d’une solution d’assistance pour doper leur activité.">
+<meta name="keywords" content="">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="google" content="notranslate">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="author" content="ManageEngine, communications@manageengine.com">
+<meta name="distribution" content="Global">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-touch-fullscreen" content="yes">
+<meta http-equiv="Content-Language" content="fr-FR"/>
+<link rel="icon" href="https://www.manageengine.com/fr/favicon.ico">
+<link rel="shortcut icon" href="https://www.manageengine.com/fr/favicon.ico">
+<script type="text/javascript" src="https://www.manageengine.com/fr/js/ipcallback-new.js"></script>
+<link rel="stylesheet" type="text/css" href="https://www.manageengine.com/fr/css/me-new-v1.css?v2">
+<link rel="stylesheet" href="https://www.manageengine.com/fr/service-desk-msp/style/guide-common-style.css"/>
+<link rel="stylesheet" type="text/css" href="https://www.manageengine.com/fr/service-desk-msp/style/msp-promo.css">
+<script type="application/ld+json">
+{
+"@context": "http://schema.org",
+"@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "ServiceDesk Plus MSP",
+    "item": "https://www.manageengine.com/fr/service-desk-msp/"
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "name": "Importance of ticketing system for MSPs",
+    "item": "https://www.manageengine.com/fr/service-desk-msp/importance-ticketing-system-msp.html"
+  }]
+}
+</script>
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.manageengine.com/fr/service-desk-msp/importance-ticketing-system-msp.html">
+<meta property="og:title" content="Importance d’un système de gestion des tickets pour les MSP : cinq raisons pour lesquelles ils ont besoin d’une solution d’assistance pour doper leur activité">
+<meta property="og:description" content="Un système de gestion des tickets d’assistance relie le MSP à ses clients. Un MSP gère tellement d’enjeux chaque jour qu’il exige une solution d’assistance offrant bien plus qu’un simple système de tickets de support. Ce guide pour MSP explique l’importance du système de gestion des tickets et les cinq raisons pour lesquelles les MSP ont besoin d’une solution d’assistance pour doper leur activité.">
+<meta property="og:image" content="https://www.manageengine.com/fr/service-desk-msp/images/importance-ticketing-system-msp.png">
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://www.manageengine.com/fr/service-desk-msp/importance-ticketing-system-msp.html">
+<meta property="twitter:title" content="Importance d’un système de gestion des tickets pour les MSP : cinq raisons pour lesquelles ils ont besoin d’une solution d’assistance pour doper leur activité">
+<meta property="twitter:description" content="Un système de gestion des tickets d’assistance relie le MSP à ses clients. Un MSP gère tellement d’enjeux chaque jour qu’il exige une solution d’assistance offrant bien plus qu’un simple système de tickets de support. Ce guide pour MSP explique l’importance du système de gestion des tickets et les cinq raisons pour lesquelles les MSP ont besoin d’une solution d’assistance pour doper leur activité.">
+<meta property="twitter:image" content="https://www.manageengine.com/fr/service-desk-msp/images/importance-ticketing-system-msp.png">
+<style>.bread-crumb p{font-size:14px;}
+.fixed-header .container{max-width:1100px;} 
+</style>
+</head>
+<body class="disable-focus-outline">
+<div class="pop-box">&nbsp;</div><div class="pop-container">&nbsp;</div>
+<div class="header-bg">
+  <div class="container header">
+    <ul>
+      <li><a href="https://www.manageengine.com/fr/" target="_blank"><img class="me-logo" src="https://www.manageengine.com/fr/images/logo/manageengine-logo.svg" alt="" title=""></a></li>
+      <li><a href="https://www.manageengine.com/fr/service-desk-msp/" target="_blank"><img class="sdp-logo" src="https://www.manageengine.com/fr/images/logo/servicedeskplusmsp.svg" alt="" title=""></a></li>
+    </ul>
+  </div>
+</div>
+<div class="secondary-header-bg">
+  <div class="container secondary-header">
+        <ul>
+    <li>
+    <p>Raisons pour lesquelles un système de gestion des tickets efficace est vital pour doper l’activité des MSP</p>
+    </li>
+    <li><a href="#form" class="cta" title="Télécharger un kit d’évaluation pour MSP">Télécharger un kit d’évaluation pour MSP</a></li>
+</ul>
+  </div>
+</div>
+<section>
+  <div class="promotion-bg">
+    <div class="container promotion"> <span id="promotionguide"></span> <span class="tooltip-close">✕</span> </div>
+  </div>
+  <div class="mobile-menu">
+<div class="dropdown-bar">
+<div>
+<p class="menu-title">MENU</p>
+<div id="current-text">Centre d&rsquo;assistance pour les MSP</div>
+</div>
+<div class="dropdown-down-arrow "><img src="https://www.manageengine.com/fr/service-desk-msp/images/mobile-menu-icon.png" alt="" /></div>
+</div>
+<ul class="category drop-list-items">
+    <li><a href="https://www.manageengine.com/fr/service-desk-msp/what-is-managed-service-provider-msp.html" data-value="Définition d&rsquo;un MSP">Définition d&rsquo;un MSP</a></li>
+    <li><a href="https://www.manageengine.com/fr/service-desk-msp/msp-pricing-model.html" data-value="Modèles tarifaires">Modèles tarifaires</a></li>
+    <li><a href="https://www.manageengine.com/fr/service-desk-msp/how-to-get-msp-clients.html" data-value="Comment gagner des clients MSP">Comment gagner des clients MSP</a></li>
+    <li><a href="https://www.manageengine.com/fr/service-desk-msp/msp-onboarding-checklist.html" data-value="Processus d&rsquo;intégration de client">Processus d&rsquo;intégration de client</a></li>
+    <li><a href="https://www.manageengine.com/fr/service-desk-msp/common-msp-mistakes.html" data-value="Erreurs courantes">Erreurs courantes</a></li>
+    <li><a href="https://www.manageengine.com/fr/service-desk-msp/msp-challenges.html" data-value="Enjeux et défis">Enjeux et défis</a></li>
+    <li><a href="https://www.manageengine.com/fr/service-desk-msp/msp-best-practices.html" data-value="Bonnes pratiques">Bonnes pratiques</a></li>
+    <li><a href="https://www.manageengine.com/fr/service-desk-msp/msp-kpis-sales-metrics.html" data-value="Mesures et KPI">Mesures et KPI</a></li>
+    <li><a href="#form" data-value="Télécharger un kit d&rsquo;évaluation">Télécharger un kit d&rsquo;évaluation</a></li>
+</ul>
+</div>
+<div class="banner-bg">
+<div class="container banner">
+<div><img src="https://www.manageengine.com/fr/service-desk-msp/images/ticketing-system-importance-msp.png" alt="Offre d&rsquo;une bonne expérience de support informatique" title="Offre d&rsquo;une bonne expérience de support informatique" /></div>
+<div>
+<h1>Offre d&rsquo;une bonne expérience de support informatique</h1>
+<p>Importance d&rsquo;un système de gestion des tickets pour les MSP</p>
+<ul class="banner-cta">
+    <li><a href="https://www.manageengine.com/fr/service-desk-msp/download.html?fr-msp-guide" title="Télécharger gratuitement une solution MSP">Télécharger gratuitement une solution MSP</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebar-wrapper">
+<ul class="sidebar">
+    <li><a href="https://www.manageengine.com/fr/service-desk-msp/what-is-managed-service-provider-msp.html">Définition d&rsquo;un MSP</a></li>
+    <li><a href="https://www.manageengine.com/fr/service-desk-msp/msp-pricing-model.html">Modèles tarifairess</a></li>
+    <li><a href="https://www.manageengine.com/fr/service-desk-msp/how-to-get-msp-clients.html">Comment gagner des clients MSP</a></li>
+    <li><a href="https://www.manageengine.com/fr/service-desk-msp/msp-onboarding-checklist.html">Processus d&rsquo;intégration de client</a></li>
+    <li><a href="https://www.manageengine.com/fr/service-desk-msp/common-msp-mistakes.html">Erreurs courantes</a></li>
+    <li><a href="https://www.manageengine.com/fr/service-desk-msp/msp-challenges.html">Enjeux et défis</a></li>
+    <li><a href="https://www.manageengine.com/fr/service-desk-msp/msp-best-practices.html">Bonnes pratiques</a></li>
+    <li><a href="https://www.manageengine.com/fr/service-desk-msp/how-to-choose-msp-technologies.html">Choix des technologies adaptées</a></li>
+    <li class="self"><a href="https://www.manageengine.com/fr/service-desk-msp/importance-ticketing-system-msp.html#help-desk-msp">Centre d&rsquo;assistance pour les MSP</a></li>
+    <li><a href="https://www.manageengine.com/fr/service-desk-msp/msp-kpis-sales-metrics.html">Mesures et KPI</a></li>
+    <li><a href="https://www.manageengine.com/fr/service-desk-msp/managed-services-market.html">Marché des MSP</a></li>
+    <li><a href="https://www.manageengine.com/fr/service-desk-msp/msp-trends.html">Tendances</a></li>
+    <li><a href="#form">Télécharger un kit d&rsquo;évaluation</a></li>
+</ul>
+<p class="sidebar-close">&nbsp;</p>
+</div>
+</section>
+<div class="container bread-crumb" id="bread-crumb">
+   <p><a href="https://www.manageengine.com/fr/service-desk-msp/?bk" title="Home">ServiceDesk Plus MSP</a> <span class="smlarlft">&nbsp;</span>
+      <a href="https://www.manageengine.com/fr/service-desk-msp/what-is-managed-service-provider-msp.html?bk" title="Définition d’un prestataire de services d’infogérance (MSP)">Définition d’un prestataire de services d’infogérance (MSP)</a> <span class="smlarlft">&nbsp;</span> <span class="fntwt400">Importance d’un système de gestion des tickets pour les MSP</span>
+   </p>
+</div>
+<section>
+  <div id="content">
+<div class="row-bg pT0" id="help-desk-msp">
+<div class="container row-min">
+<p class="last-updated">Dernière mise à jour&nbsp;: Mars 10, 2022</p>
+<div class="row-min-left-col">
+<h2>Importance d&rsquo;un bon outil d&rsquo;assistance pour les MSP</h2>
+</div>
+<div class="row-min-right-col">
+<p>Un système d&rsquo;assistance relie le MSP à ses clients. D&rsquo;aucuns affirment même qu&rsquo;il s&rsquo;agit de la base d&rsquo;une activité MSP. Ce système d&rsquo;assistance gère chaque problème ou  <!--a href="https://www.manageengine.com/fr/service-desk-msp/service-request-life-cycle.html" title="demande de service"-->demande de service et héberge le <a href="https://www.manageengine.com/fr/service-desk/self-service/it-helpdesk-self-service-portal.html">portail en libre-service</a>. Un MSP traite de très nombreuses demandes chaque jour en matière de mots de passe, de problèmes matériels ou d&rsquo;autres aspects. Il exige une  <a href="https://www.manageengine.com/fr/service-desk-msp/" title="solution d&rsquo;assistance">solution d&rsquo;assistance</a> offrant bien plus qu&rsquo;un simple  <!--a href="https://www.manageengine.com/fr/service-desk/help-desk-software/it-ticketing-system.html" title="système de gestion des tickets"--> système de gestion des tickets.</p>
+<p>La gestion de l&rsquo;infrastructure informatique du client en tout ou partie l&rsquo;amène à faire face à des enjeux dépassant largement les tickets d&rsquo;incident. Il a donc grand besoin de modules intégrés pour les processus ITSM comme la  <!--a href="https://www.manageengine.com/fr/service-desk-msp/incident-management.html" title="gestion des incidents"-->gestion des incidents, des <!--a href="https://www.manageengine.com/fr/service-desk-msp/problem-management.html" title="problèmes"-->problèmes, des  <!--a href="https://www.manageengine.com/fr/service-desk-msp/change-management.html" title="modifications"-->modifications, des <!--a href="https://www.manageengine.com/fr/service-desk-msp/it-project-management.html"-->project et des <!--a href="https://www.manageengine.com/fr/service-desk-msp/asset-management.html" title="actifs"--> actifs. Une <!--a href="https://www.manageengine.com/fr/service-desk/itsm/what-is-itsm.html" title="bonne gestion des processus ITSM offre des avantages"-->bonne gestion des processus ITSM offre des avantages comme des coûts d&rsquo;exploitation informatique réduits et des interruptions de service minimes.</p>
+<p>Outre ces processus ITSM, un MSP doit disposer de fonctionnalités RMM et PSA (comme la facturation) pour gérer les ressources de ses clients, d&rsquo;un module de suivi complet avec des tableaux de bord d&rsquo;analyse des activités d&rsquo;assistance et d&rsquo;outils de gestion des achats et des contrats pour enregistrer le matériel acquis et les licences de logiciel. Un MSP a absolument besoin de ces fonctionnalités.</p>
+<div><img class="mim-image zoomD" src="https://www.manageengine.com/fr/service-desk-msp/images/help-desk-software-msp.png" alt="Solution d&rsquo;assistance complète comprenant des fonctionnalités essentielles conçues pour les MSP (solution de l&rsquo;image&nbsp;: ServiceDesk Plus MSP)" title="Solution d&rsquo;assistance complète comprenant des fonctionnalités essentielles conçues pour les MSP (solution de l&rsquo;image&nbsp;: ServiceDesk Plus MSP)" />                     <figcaption>Solution d&rsquo;assistance complète comprenant des fonctionnalités essentielles conçues pour les MSP (solution de l&rsquo;image&nbsp;: ServiceDesk Plus MSP)/figcaption&gt;</figcaption></div>
+<p>Il est donc surprenant que la plupart des <a href="https://www.manageengine.com/fr/service-desk/" title="solutions d&rsquo;assistance">solutions d&rsquo;assistance</a> n&rsquo;offrent pas la moitié de ces fonctionnalités. Le MSP se retrouve alors avec une seule option, acheter d&rsquo;autres produits pour obtenir celles manquantes et les  <!--a href="https://www.manageengine.com/fr/service-desk-msp/helpdesk-msp-integrations.html" title="intégrer à sa solution d&rsquo;assistance"-->intégrer à sa solution d&rsquo;assistance. Dans le pire des cas, la solution que le MSP choisit finalement ne s&rsquo;intègre même pas à l&rsquo;outil existant de l&rsquo;entreprise, ou elle engendre de nombreuses complications et erreurs à l&rsquo;intégration et par la suite. Somme toute, le MSP doit assumer la charge financière de remplacer l&rsquo;outil ou tenter de gérer un système déficient.</p>
+<h2>Voici les principales raisons pour lesquelles un MSP a besoin d&rsquo;une bonne solution d&rsquo;assistance&nbsp;:</h2>
+<h3>1. Système de gestion des tâches efficace</h3>
+<p>Le module de gestion des tickets de base de certains outils contient un seul écran pour créer un ticket et aucun système de gestion des tâches. Les outils sans système de gestion des tâches offrent finalement des fonctionnalités de base avec un minimum de champs et d&rsquo;écrans.</p>
+<p>Une bonne solution d&rsquo;assistance offre à la fois des fonctionnalités permettant à un MSP de créer et de modifier des tâches, ainsi que de les affecter à des techniciens, et des fonctionnalités pour créer et modifier des dépendances de tâche, ajouter des carnets de travail (temps consacré à un ticket par un technicien), etc.</p>
+<p>Elle simplifie la gestion des tâches en affichant les techniciens, leur activité et l&rsquo;étape suivante, ce qui permet à d&rsquo;autres d&rsquo;intervenir et d&rsquo;effectuer les tâches pour l&rsquo;<!--a href="https://www.manageengine.com/fr/service-desk-msp/service-level-agreement.html" title="exécution ponctuelle des SLA"-->exécution ponctuelle des SLA.</p>
+<div class="imgzoom"><img class="mim-image zoomD" src="https://www.manageengine.com/fr/service-desk-msp/images/task-management.png" alt="Système de gestion des tâches" title="Système de gestion des tâches" />                     <figcaption>Système de gestion des tâches</figcaption></div>
+<h3>2. Résolution accélérée des tickets</h3>
+<p>Un MSP gère de nombreux tickets et a donc toujours besoin d&rsquo;un moyen de suivre les tickets non traités et de les transférer à des techniciens pour obtenir une résolution rapide. Une solution d&rsquo;assistance dotée de solides fonctions de suivi, d&rsquo;<!--a href="https://www.manageengine.com/fr/service-desk/automation/" title="automatisation"-->automatisation à divers niveaux et de copie d&rsquo;une résolution de la base de connaissances directement dans un ticket accélère la gestion courante des tickets entrants.</p>
+<div class="imgzoom"><img class="mim-image zoomD" src="https://www.manageengine.com/fr/service-desk-msp/images/msp-ticketing-system.png" alt="Règles basées sur des critères pour affecter des tickets, les classer, etc." title="Règles basées sur des critères pour affecter des tickets, les classer, etc." />                     <figcaption>Règles basées sur des critères pour affecter des tickets, les classer, etc.</figcaption></div>
+<h3>3. Offre de moyens au client pour qu&rsquo;il résolve lui-même les problèmes mineurs</h3>
+<p>L&rsquo;un des points forts d&rsquo;une bonne solution d&rsquo;assistance réside dans un <!--a href="https://www.manageengine.com/fr/service-desk-msp/self-service-portal.html" title="portail en libre-service"-->portail en libre-service. Il offre à l&rsquo;utilisateur un accès pratique au  <!--a href="https://www.manageengine.com/fr/service-desk-msp/service-catalog.html" title="catalogue de services"-->catalogue de services et à la base de connaissances. L&rsquo;utilisateur enregistre un problème directement dans le portail en libre-service ou recherche des informations à ce sujet dans la base de connaissances. Une solution d&rsquo;assistance sophistiquée affiche des articles de la base de connaissances sur tout problème que l&rsquo;utilisateur indique en objet du ticket qu&rsquo;il crée dans le portail en libre-service. Une <!--a href="https://www.manageengine.com/fr/service-desk-msp/knowledge-base.html" title="base de connaissances"-->base de connaissances aide à réduire la plupart des tickets de premier niveau demandant une information élémentaire.</p>
+<div class="imgzoom"><img class="mim-image zoomD" src="https://www.manageengine.com/fr/service-desk-msp/images/msp-it-self-service-portal.jpg" alt="Portail en libre-service" title="Portail en libre-service" />                     <figcaption>Portail en libre-service</figcaption></div>
+<h3>4. Génération de retour client</h3>
+<p>De nombreux outils d&rsquo;assistance peuvent générer une enquête de retour client (sur une échelle de 1 à 5) pour chaque service fourni. Certaines solutions avancées permettent de créer et de gérer différents types d&rsquo;enquêtes client selon le type de demande (incident ou service). Un MSP peut choisir le moment et la fréquence d&rsquo;envoi de l&rsquo;enquête ou définir des critères pour cibler précisément les domaines et collecter des avis précieux afin de prouver aux clients toute l&rsquo;attention qu&rsquo;il porte à la résolution de leurs problèmes.</p>
+<div class="imgzoom"><img class="mim-image zoomD imgweith" src="https://www.manageengine.com/fr/service-desk-msp/images/msp-customer-survey.png" alt="Création d&rsquo;une enquête de satisfaction client" title="Création d&rsquo;une enquête de satisfaction client" />                     <figcaption>Création d&rsquo;une enquête de satisfaction client</figcaption></div>
+<div class="imgzoom"><img class="mim-image zoomD" src="https://www.manageengine.com/fr/service-desk-msp/images/track-msp-customer-satisfaction.png" alt="Paramètres d&rsquo;enquête" title="Paramètres d&rsquo;enquête" />                     <figcaption>Paramètres d&rsquo;enquête</figcaption></div>
+<h3>5. Analyse des points cruciaux</h3>
+<p>Un système d&rsquo;assistance permet d&rsquo;extraire des renseignements utiles sur l&rsquo;activité à l&rsquo;aide de <!--a href="https://www.manageengine.com/fr/service-desk-msp/reports.html" title="rapports et de tableaux de bord"-->rapports et de tableaux de bord. Selon l&rsquo;information tirée de ces rapports, un MSP peut partager une série de bonnes pratiques et d&rsquo;autres articles utiles dans la base de connaissances pour aider les techniciens à accélérer la résolution des tickets. Grâce à des <!--a href="https://www.manageengine.com/fr/service-desk-msp/msp-metrics-dashboard.html" title="tableaux de bord opérationnels"-->tableaux de bord opérationnels, le MSP prépare le budget du trimestre ou de l&rsquo;exercice à venir et améliore la rentabilité de son activité.</p>
+<div class="imgzoom"><img class="mim-image zoomD" src="https://www.manageengine.com/fr/service-desk-msp/images/msp-business-dashboard-template.png" alt="Tableau de bord opérationnel affichant un aperçu global des mesures cruciales" title="Tableau de bord opérationnel affichant un aperçu global des mesures cruciales" />                     <figcaption>Tableau de bord opérationnel affichant un aperçu global des mesures cruciales</figcaption></div>
+</div>
+</div>
+</div>
+</div>
+<div>
+<div class="container">
+<ul class="prev-next">
+    <li>
+    <p style="margin-bottom: 0px"><a href="https://www.manageengine.com/fr/service-desk-msp/how-to-choose-msp-technologies.html" title="Comment choisir des technologies MSP">Précédent</a></p>
+    <p class="prev-next-title"><a href="https://www.manageengine.com/fr/service-desk-msp/how-to-choose-msp-technologies.html" title="Comment choisir des technologies MSP">Comment choisir des technologies MSP</a></p>
+    <span class="left-arrow"><a href="https://www.manageengine.com/fr/service-desk-msp/how-to-choose-msp-technologies.html" title="Comment choisir des technologies MSP">&larr;</a></span></li>
+    <li>
+    <p><a href="https://www.manageengine.com/fr/service-desk-msp/msp-kpis-sales-metrics.html" title="Mesures et KPI du MSP">Suivant</a></p>
+    <p class="prev-next-title"><a href="https://www.manageengine.com/fr/service-desk-msp/msp-kpis-sales-metrics.html" title="Mesures et KPI du MSP">Mesures et KPI du MSP</a></p>
+    <span class="right-arrow"><a href="https://www.manageengine.com/fr/service-desk-msp/msp-kpis-sales-metrics.html" title="Mesures et KPI du MSP">&rarr;</a></span></li>
+</ul>
+</div>
+</div>
+  <div class="row-bg" id="form">
+  <div class="container">
+    <div class="form-bg">
+      <p class="form-main-title">Modèle d’appel d’offres de solution MSP</p>
+      <p class="form-heading">Liste de contrôle fonctionnelle d’offre exclusive.</p>
+      <ul class="form-list-items">
+        <li>
+          <p>Appel d’offres ServiceDesk Plus MSP</p>
+          <p class="form-des">Liste complète des fonctionnalités indispensables qui peut servir de référence pour l’assistance informatique.</p>
+        </li>
+      </ul>
+      <div class="apiform">
+        <form id="Apiform" action="https://forms.manageengine.com/form_new.do" method="post" name="Apiform" onSubmit="return Apiformvalid()">
+          <div class="formfild">
+            <input type="text" id="emailID" name="emailid" placeholder="Adresse électronique *" required="required" autocomplete="off" />
+            <span id="email_err_msg" class="errormsg" style="display:none;"> </span></div>
+          <div>
+            <select id="MECountryListing" data-businessemail="business" name="country" required="required">
+            </select>
+          </div>
+          <div id="meGDPRMessage">&nbsp;</div>
+          <div class="prvcy-plicy" id="formCTAgdpr">En cliquant sur <strong><span id="clickevnt_text">Télécharger un kit d’évaluation</span></strong>, vous acceptez le traitement de vos données à caractère personnel selon la  <a class="policy" href="https://www.manageengine.com/fr/privacy.html" target="_blank">Politique de confidentialité</a>.</div>
+          <div class="mT10" align="center">
+            <div class="submitdiv">
+              <input type="submit" name="submit-form" id="submit" value="Télécharger un kit d’évaluation" />
+              <input type="hidden" name="next-url" id="nexturl" value="" />
+              <!-- Please enter your subject -->
+              <input type="hidden" name="subject" value="Managed Service Provider (MSP) guide - French" />
+              <input type="text" id="user-detail" name="user-detail" />
+              <input type="hidden" name="timezone" value="tzo" />
+              <!-- Please enter your CC mailid -->
+              <input type="hidden" id="email_cc" name="cc" value="sdp-mobile@manageengine.com" />
+              <input value="FR" name="mesitesource" type="hidden">
+              <!-- Please enter your leadsource -->
+              <input type="hidden" value="Guide" name="leadsource" />
+              <!-- Please enter your resourcename -->
+              <input type="hidden" value="Managed Service Provider guide - French" name="resourcename" />
+              <!-- Please enter your Product name -->
+              <input type="hidden" value="Service Desk" name="productname" />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+  <div id="lb-back"><span id="closeimg">&nbsp;</span>
+    <div id="lb-img">&nbsp;</div>
+  </div>
+</section>
+<section>
+  
+</section>
+<div class="container sub-footer" style="text-align: center;">
+  <p><span id="copy-year"></span> <a href="https://www.zohocorp.com/?MECFooter" target="_blank" title="Zoho Corporation Pvt. Ltd.">Zoho Corporation Pvt. Ltd.</a> Все права защищены.</p>
+</div>
+<script type="text/javascript" src="https://www.manageengine.com/fr/js/me-new-v1.js"></script>
+<script type="text/javascript" src="https://www.manageengine.com/fr/service-desk-msp/js/guide-common-script.js"></script> 
+<script type="text/javascript">
+function Apiformvalid() {
+    var email = document.getElementById("emailID").value;
+    var mailformat = /^[a-z0-9]([a-z0-9_\-\.\+]*)@([a-z0-9_\-\.]+)(\.[a-z]{2,4}){1,2}$/i;
+    var nexturl = "https://www.manageengine.com/products/service-desk/incident-management-kit.zip";
+
+    if (!mailformat.test(email)) {
+        $('#emailID').focus().addClass('error');
+        $('#email_err_msg').text('Entrez votre adresse e-mail.').show();
+        return false;
+    }
+    else {
+        getMarkvalRegional();
+        try {
+            $zoho.salesiq.visitor.customaction('{\'eventCategory\':\'MSP Guide\',\'eventAction\':\'ServiceDesk MSP\',\'eventLabel\':\'MSP guide chapter 10 - French\',\'customID\':\'-\'}');
+        } catch (exp) {}
+
+        if (confirm) {
+            var nexturl = "https://www.manageengine.com/fr/service-desk-msp/msp-guide-thanks.html";
+            $("#nexturl").val(nexturl);
+            window.open("https://www.manageengine.com/products/service-desk-msp/msp-software-evaluation-kit.zip");
+        } else {
+            return false;
+        }
+        $("#nexturl").val(nexturl);
+        $('#email_err_msg').hide();
+        document.Apiform.submit();
+    }
+    $('.error').first().focus();
+    return false;
+}
+</script> 
+
+
+</body>
+</html>

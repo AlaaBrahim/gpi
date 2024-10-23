@@ -1,0 +1,364 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zabbix</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <style>
+        /* Style général pour le corps */
+        body {
+            background-color: #f4f7fc;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Style de la barre de navigation */
+        .navbar {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            font-weight: bold;
+            padding: 15px 25px;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            animation: navbarFadeIn 1s ease forwards;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        /* Conteneur pour les éléments de la barre de navigation */
+        .navbar-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        /* Style des images dans la barre de navigation */
+        .navbar img {
+            height: 60px;
+            width: 60px;
+            border-radius: 50%;
+            margin-right: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        /* Effet de rotation sur les images au survol */
+        .navbar img:hover {
+            transform: rotate(360deg);
+        }
+
+        /* Style des liens dans la barre de navigation */
+        .navbar a {
+            color: #f0f0f0;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+            transition: color 0.3s ease, background-color 0.3s ease;
+            font-size: 1.1em;
+            margin: 0 10px;
+        }
+
+        /* Effet de survol sur les liens */
+        .navbar a:hover {
+            background-color: #483d8b;
+            color: #fff;
+            border-radius: 5px;
+        }
+
+        /* Style de l'horloge */
+        .clock {
+            color: #f0f0f0;
+            font-size: 1.5em;
+            margin-left: 20px;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Animation pour l'horloge */
+        @keyframes fadeInClock {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Style des titres */
+        h1 {
+            margin-top: 150px;
+            color: #9363c4;
+            text-align: center;
+            font-size: 3em;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: fadeInTitle 1.5s ease forwards;
+        }
+
+        /* Style des containers */
+        .container {
+            text-align: center;
+            padding: 20px;
+            animation: containerFadeIn 1.5s ease forwards;
+        }
+
+        /* Style des tableaux */
+        table {
+            width: 90%;
+            margin: 40px auto;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            animation: tableFadeIn 1.5s ease forwards;
+        }
+
+        /* Effet de survol sur les tableaux */
+        table:hover {
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Style des cellules des tableaux */
+        th, td {
+            padding: 15px 20px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+            transition: background-color 0.3s ease;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        /* Style des en-têtes de colonnes */
+        th {
+            background: linear-gradient(to right, #667eea, #764ba2);
+            color: #fff;
+            font-weight: bold;
+        }
+
+        /* Effet de survol sur les lignes du tableau */
+        tbody tr:hover {
+            background-color: #f1f1f1;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        /* Style des cellules avec des problèmes */
+        .problem {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        /* Style des cellules avec SNMP ouvert */
+        .status-snmp {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        /* Style des cellules avec SNMP fermé */
+        .status-closed {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        /* Animation pour le titre */
+        @keyframes fadeInTitle {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Animation pour la barre de navigation */
+        @keyframes navbarFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Animation pour les tableaux */
+        @keyframes tableFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Animation pour les containers */
+        @keyframes containerFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Animation pour le titre avec effet de couleurs */
+        @keyframes textRainbow {
+          
+        
+            70% { color: #4b0082; }
+         
+        }
+
+        /* Style du titre avec effet de couleurs */
+        h1 {
+            animation: fadeInTitle 1.5s ease forwards, textRainbow 5s infinite;
+        }
+
+        /* Style de l'horloge moderne */
+        .clock-modern {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #ffffff;
+            animation: fadeInClock 1.5s ease forwards;
+        }
+
+        /* Effet de survol sur l'horloge */
+        .clock-modern:hover {
+            color: #022dad;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Style des icônes */
+        .icon {
+            font-size: 1.5em;
+            vertical-align: middle;
+            color: #83a591;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barre de navigation -->
+    <div class="navbar" data-aos="fade-down">
+        <div class="navbar-container">
+            <img src="{% static 'assets/llll.jpg' %}" alt="Logo Zabbix">
+            <a href="{% url 'dashboard' %}"><i class="fas fa-home icon"></i> Accueil</a>
+            <a href="{% url 'ajouter_hote' %}"><i class="fas fa-plus-circle icon"></i> Ajouter un hôte</a>
+            <div class="clock clock-modern" id="clock"></div>
+            <img src="{% static 'assets/zabbix.png' %}" alt="Logo tt">
+        </div>
+    </div>
+
+    <!-- Container principal -->
+    <div class="container" data-aos="fade-up">
+        <h1>Liste des Hôtes Zabbix</h1>
+        <table data-aos="fade-up">
+            <thead>
+                <tr>
+                    <th><i class="fas fa-server icon"></i> Nom de l'hôte</th>
+                    <th><i class="fas fa-network-wired icon"></i> SNMP</th>
+                    <th><i class="fas fa-exclamation-triangle icon"></i> Problème</th>
+                </tr>
+            </thead>
+            <tbody id="host-list">
+                <!-- La liste des hôtes sera ajoutée ici -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init();
+
+        // Fonction pour mettre à jour l'horloge
+        function updateClock() {
+            const clockElement = document.getElementById('clock');
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            clockElement.textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        const apiUrl = 'http://192.168.1.14/api_jsonrpc.php';
+
+        // Fonction pour récupérer les hôtes Zabbix
+        async function getZabbixHosts() {
+            try {
+                const payload = {
+                    jsonrpc: '2.0',
+                    method: 'host.get',
+                    params: {
+                        output: ['hostid', 'host', 'status', 'snmp_available']
+                    },
+                    auth: 'e6ad880c24f125029f75fb9692ddb57a837ecdf58d93724a762d058ad50adccd',
+                    id: 1
+                };
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Erreur lors de la récupération des données.');
+                }
+
+                const data = await response.json();
+                if (!data.result || data.result.length === 0) {
+                    throw new Error('Aucun hôte trouvé.');
+                }
+
+                const hostList = document.getElementById('host-list');
+                for (const host of data.result) {
+                    const problem = await getZabbixHostProblem(host.hostid);
+                    const listItem = document.createElement('tr');
+                    listItem.innerHTML = `
+                        <td>${host.host}</td>
+                        <td class="${host.snmp_available ? 'status-snmp' : 'status-closed'}">${host.snmp_available ? 'SNMP Ouvert' : 'SNMP Fermé'}</td>
+                        <td class="problem">${problem}</td>
+                    `;
+                    hostList.appendChild(listItem);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        // Fonction pour récupérer les problèmes des hôtes
+        async function getZabbixHostProblem(hostId) {
+            const payload = {
+                jsonrpc: '2.0',
+                method: 'problem.get',
+                params: {
+                    output: ['eventid', 'name'],
+                    hostids: hostId,
+                    recent: true,
+                    sortfield: ['eventid'],
+                    sortorder: 'DESC',
+                    limit: 1
+                },
+                auth: 'e6ad880c24f125029f75fb9692ddb57a837ecdf58d93724a762d058ad50adccd',
+                id: 1
+            };
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                throw new Error('Erreur lors de la récupération des problèmes.');
+            }
+
+            const data = await response.json();
+            if (data.result.length > 0) {
+                return data.result[0].name;
+            } else {
+                return 'Aucun problème';
+            }
+        }
+
+        window.onload = getZabbixHosts;
+    </script>
+</body>
+</html>

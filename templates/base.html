@@ -1,0 +1,368 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+      body {
+        border: 2px solid #ccc;
+        background-size: cover;
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #333;
+        transition: margin-left 0.5s ease; /* Ajout de la transition pour le corps */
+    }
+
+    .sidebar {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        width: 80px;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        overflow-x: hidden;
+        transition: width 0.5s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 20px;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        box-shadow: 2px 0 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar:hover {
+        width: 200px;
+        box-shadow: 4px 0 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .content {
+        margin-left: 80px; /* Correspond à la largeur de la barre latérale initiale */
+        padding: 20px;
+        transition: margin-left 0.5s ease; /* Ajout de la transition pour le contenu */
+    }
+
+    .sidebar:hover ~ .content {
+        margin-left: 200px; /* Correspond à la largeur de la barre latérale élargie */
+    }
+
+    @media (max-width: 768px) {
+        .sidebar {
+            width: 100px;
+        }
+
+        .sidebar:hover {
+            width: 100px;
+        }
+
+        .content {
+            margin-left: 100px;
+        }
+
+        .sidebar:hover ~ .content {
+            margin-left: 100px;
+        }
+    }
+
+    .logo-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 20px;
+        text-align: center;
+        transition: transform 0.5s;
+    }
+
+    .logo-container:hover {
+        transform: rotate(360deg);
+    }
+
+    .sidebar-logo {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 3px solid #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 10px;
+    }
+
+    .logo-text {
+        color: #fff;
+        font-size: 1em; /* Ajusté pour réduire la taille du texte */
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .menu-item {
+        width: 100%;
+        padding: 15px 20px;
+        color: #fff;
+        text-align: left;
+        transition: background-color 0.3s, transform 0.3s;
+        display: flex;
+        align-items: center;
+        position: relative;
+        cursor: pointer;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+
+    .menu-item:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateX(10px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu-item .icon {
+        margin-right: 10px;
+        font-size: 1.2em; /* Ajusté pour réduire la taille de l'icône */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 40px;
+        color: #fff;
+        transition: transform 0.3s;
+    }
+
+    .menu-item .text {
+        display: none;
+        opacity: 0;
+        transition: opacity 0.3s;
+        white-space: nowrap;
+        font-size: 0.9em; /* Ajusté pour réduire la taille du texte */
+        font-weight: bold;
+    }
+
+    .sidebar:hover .menu-item .text {
+        display: inline;
+        opacity: 1;
+        transition: opacity 0.3s 0.2s;
+    }
+
+    .sidebar-section {
+        width: 100%;
+        margin-bottom: 20px;
+        padding-left: 20px;
+        font-size: 0.9em;
+        color: #ddd;
+    }
+
+    .badge {
+        background-color: #ff5722;
+        color: white;
+        padding: 3px 8px;
+        border-radius: 12px;
+        font-size: 0.75em;
+        margin-left: auto;
+    }
+
+    .btn-icon-logout {
+        color: #fff;
+        margin-top: auto;
+        margin-bottom: 20px;
+        text-align: center;
+        transition: color 0.3s, transform 0.3s;
+        padding: 15px 20px;
+        font-size: 0.9em; /* Ajusté pour réduire la taille du texte */
+    }
+
+    .btn-icon-logout:hover {
+        color: #ff5722;
+        transform: scale(1.2);
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+    }
+
+    .menu-item .icon i {
+        display: inline-block;
+        transition: transform 0.3s;
+        transform-origin: center;
+    }
+
+    .menu-item:hover .icon i {
+        transform: rotateY(360deg);
+    }
+
+    .menu-item::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 5px;
+        background: #ff5722;
+        transform: scaleY(0);
+        transition: transform 0.3s ease;
+    }
+
+    .menu-item:hover::before {
+        transform: scaleY(1);
+    }
+
+    .menu-item::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        height: 5px;
+        width: 100%;
+        background: #ff5722;
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+    }
+
+    .menu-item:hover::after {
+        transform: scaleX(1);
+    }
+
+    .tooltip-inner {
+        background-color: #667eea;
+        color: #fff;
+        font-size: 0.9em;
+        border-radius: 0.25rem;
+    }
+
+    .sidebar:hover .menu-item .icon {
+        animation: shake 0.5s;
+        animation-iteration-count: 1;
+    }
+
+    @keyframes shake {
+        0% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        50% { transform: translateX(5px); }
+        75% { transform: translateX(-5px); }
+        100% { transform: translateX(0); }
+    }
+    </style>
+
+    <title>GPI</title>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo-container">
+            <img src="{% static 'assets/llll.jpg' %}" alt="Logo" class="sidebar-logo">
+            <div class="logo-text">GPI</div>
+        </div>
+        <div class="menu-bar">
+            
+            {% if request.user.is_customer %}
+                <a href="{% url 'dashboard' %}" class="menu-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Acceuil">
+                    <div class="icon"><i class="fas fa-home"></i></div>
+                    <span class="text">Acceuil</span>
+                </a>
+
+                <a href="{% url 'customer-resolved-tickets' %}" class="menu-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Tickets">
+                    <div class="icon"><i class="fas fa-tools"></i></div>
+                    <span class="text">Tickets Résolus</span>
+                </a>
+            {% elif request.user.is_engineer %}
+                <a href="{% url 'dashboard' %}" class="menu-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Acceuil">
+                    <div class="icon"><i class="fas fa-home"></i></div>
+                    <span class="text">Acceuil</span>
+                </a>
+
+                <a href="{% url 'engineer-resolved-tickets' %}" class="menu-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Tickets">
+                    <div class="icon"><i class="fas fa-tools"></i></div>
+                    <span class="text">Tickets Résolus</span>
+                </a>
+
+                <a href="{% url 'index' %}" class="menu-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Materiels">
+                    <div class="icon"><i class="fas fa-cogs"></i></div>
+                    <span class="text">Materiels</span>
+                </a>
+
+                <a href="{% url 'test' %}" class="menu-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Zabbix">
+                    <div class="icon"><i class="fas fa-server"></i></div>
+                    <span class="text">Zabbix</span>
+                </a>
+            {% elif request.user.is_superuser %}
+                <a href="{% url 'dashboard' %}" class="menu-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Acceuil">
+                    <div class="icon"><i class="fas fa-home"></i></div>
+                    <span class="text">Acceuil</span>
+                </a>
+
+                <a href="{% url 'issue-history' %}" class="menu-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Tickets">
+                    <div class="icon"><i class="fas fa-tools"></i></div>
+                    <span class="text">Historique de Tickets</span>
+                </a>
+
+                <a href="{% url 'index' %}" class="menu-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Materiels">
+                    <div class="icon"><i class="fas fa-cogs"></i></div>
+                    <span class="text">Materiels</span>
+                </a>
+
+                <a href="{% url 'test' %}" class="menu-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Zabbix">
+                    <div class="icon"><i class="fas fa-server"></i></div>
+                    <span class="text">Zabbix</span>
+                </a>
+                <a href="{% url 'register_user' %}" class="menu-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Ajouter membres">
+                    <div class="icon"><i class="fas fa-users"></i></div>
+                    <span class="text">Ajouter membres</span>
+                </a>
+            {% endif %}
+            
+            {% if request.user.is_authenticated %}
+                <div class="menu-item" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ request.user.email }}">
+                    <div class="icon"><i class="fas fa-user"></i></div>
+                    <span class="text">{{ request.user.email }}</span>
+                </div>
+            {% endif %}
+        </div>
+
+        <a href="{% url 'logout' %}" class="btn-icon-logout" title="Se déconnecter">
+            <div class="icon"><i class="fas fa-sign-out-alt"></i></div>
+            <span class="text">Se déconnecter</span>
+        </a>
+    </div>
+
+    <div class="content">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" role="alert">
+                    <b>{{ message }}</b>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% block content %}
+        {% endblock content %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function updateClock() {
+                const now = new Date();
+                const hours = now.getHours().toString().padStart(2, '0');
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                const seconds = now.getSeconds().toString().padStart(2, '0');
+                const timeString = `${hours}:${minutes}:${seconds}`;
+                document.getElementById('live-clock').textContent = timeString;
+            }
+
+            setInterval(updateClock, 1000);
+            updateClock();
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+    </script>
+</body>
+</html>

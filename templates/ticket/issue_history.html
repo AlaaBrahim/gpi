@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Inclure Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<style>
+    .table-container {
+        margin: 20px auto;
+        max-width: 98%;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        border: 1px solid #ececec;
+        animation: fadeIn 0.5s ease-out forwards;
+    }
+    @keyframes fadeIn {
+        0% { opacity: 0; transform: translateY(30px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: 'Arial', sans-serif;
+        text-align: left;
+        background-color: #f9f9f9;
+    }
+    th, td {
+        text-align: left;
+        padding: 16px 24px;
+        vertical-align: middle;
+        border-bottom: 1px solid #ddd;
+        position: relative;
+    }
+    thead {
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        color: white;
+        font-size: 16px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+    tbody tr {
+        transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        will-change: transform, box-shadow;
+    }
+    tbody tr:nth-child(odd) {
+        background-color: #f2f2f2;
+    }
+    tbody tr:hover {
+        background-color: #e9ecef;
+        transform: scale(1.03);
+        box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+    }
+    .badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.5em 0.75em;
+        border-radius: 0.25rem;
+        color: white;
+        font-size: 0.875em;
+        font-weight: 500;
+    }
+    .bg-danger { background-color: #dc3545; }
+    .bg-warning { background-color: #ffc107; }
+    .bg-success { background-color: #28a745; }
+    .badge i {
+        margin-right: 0.5em;
+    }
+    .icon-container {
+        display: inline-block;
+        margin-right: 8px;
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
+    .icon-container i {
+        font-size: 1.2em;
+    }
+    .icon-container:hover i {
+        transform: scale(1.5);
+        color: #007bff;
+    }
+    @keyframes bounceIn {
+        0%, 20%, 40%, 60%, 80%, 100% {
+            -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+            animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+        }
+        0% {
+            opacity: 0;
+            transform: scale3d(.3, .3, .3);
+        }
+        20% {
+            transform: scale3d(1.1, 1.1, 1.1);
+        }
+        40% {
+            transform: scale3d(.9, .9, .9);
+        }
+        60% {
+            opacity: 1;
+            transform: scale3d(1.03, 1.03, 1.03);
+        }
+        80% {
+            transform: scale3d(.97, .97, .97);
+        }
+        100% {
+            opacity: 1;
+            transform: scale3d(1, 1, 1);
+        }
+    }
+    .badge {
+        animation: bounceIn 1s both;
+    }
+    .slide-in-right {
+        animation: slideInRight 0.6s ease-out;
+    }
+    @keyframes slideInRight {
+        0% {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        100% {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    /* Ajout du style pour les cercles de réclamation */
+    .reclamation-circle {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #ffc107;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        position: relative;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .reclamation-circle:hover {
+        transform: scale(1.2);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    .back-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+</style>
+
+<div class="container mt-4">
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">ID ticket</th>
+                    <th scope="col">Titre du ticket</th>
+                    <th scope="col">Client</th>
+                    <th scope="col">Date créée</th>
+                    <th scope="col">Statut</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ticket in tickets %}
+                <tr class="slide-in-right">
+                    <td>
+                        <div class="icon-container">
+                            <i class="fas fa-ticket-alt"></i>
+                        </div>
+                        {{ ticket.id }}
+                    </td>
+                    <td>{{ ticket.title }}</td>
+                    <td>{{ ticket.customer }}</td>
+                    <td>{{ ticket.created_on|date:"d/m/Y" }}</td>
+                    <td>
+                        <span class="badge {% if ticket.status == 'Pending' %}bg-danger{% elif ticket.status == 'Active' %}bg-warning{% elif ticket.status == 'Resolved' %}bg-success{% endif %}">
+                            <i class="fas {% if ticket.status == 'Pending' %}fa-times-circle{% elif ticket.status == 'Active' %}fa-exclamation-circle{% elif ticket.status == 'Resolved' %}fa-check-circle{% endif %}"></i>
+                            {{ ticket.status }}
+                        </span>
+                    </td>
+                    <td>
+                        {% if ticket.status == 'Pending' %}
+                        <form action="{% url 'send_reclamation' ticket.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="reclamation-circle">
+                                !
+                            </button>
+                        </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<a href="/" class="back-button"><i class="fas fa-arrow-left"></i> Retour à l'accueil</a>
+{% endblock content %}

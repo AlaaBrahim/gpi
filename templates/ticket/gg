@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+
+</div>
+<div class="container col-xl-12 col-xxl-10 px-4 py-5">
+
+    <div class="row align-items-center g-lg-5 py-5">
+        <div class="col-lg-6 text-center text-lg-start"> 
+            <div class="h-100">
+                
+                <img src="{% static 'assets/bochra.png' %}" class="card-img-top" alt="Creation" style="max-width: 290px;">
+            </div>
+        </div>
+
+        <div class="col-md-10 mx-auto col-lg-6">
+            <h2 class="display-6 fw-bold lh-1 mb-3 text-center" style="font-family: cursive; font-style: italic; color: rgb(255, 255, 255);">Créer un nouveau Ticket <i class="fas fa-ticket-alt"></i></h2>
+            <form class="ticket-form" method="POST" action="{% url 'create-ticket' %}" onsubmit="dashboard()">
+                {% csrf_token %}
+                <div class="form-floating mb-3">
+                    {% render_field form.ticket_title class="form-control" %}
+                    <label for="floatingInput"> Titre du ticket <i class="fas fa-heading"></i></label>
+                </div>
+                <div class="form-floating mb-3">
+                    {% render_field form.ticket_description class="form-control" %}
+                    <label for="floatingPassword">Parlez-nous-en davantage sur le problème... <i class="fas fa-comment"></i></label>
+                </div>
+               
+                <button class="w-100 btn btn-lg btn-primary submit-button" type="submit">Soumettre <i class="fas fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </div>
+</div>
+
+    <style>
+    /* Styles for dark mode */
+
+    
+    
+    .btn-create-ticket {
+        position: relative;
+        overflow: hidden;
+        border: none;
+        border-radius: 70px;
+        padding: 5px 5px;
+        font-size: 15px;
+        text-decoration: none;
+        color: #fff;
+        background-color: #b5bee2;
+        transition: all 0.3s ease;
+        z-index: 8;
+    }
+    
+    .btn-create-ticket .btn-border {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 2px solid transparent;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+        pointer-events: none;
+    }
+    
+    .btn-create-ticket:hover .btn-border {
+        border-color: #dcdaee;
+    }
+    
+    
+    
+    
+    </style>
+    <script>
+        function refreshdashboard() {
+            setTimeout(function() {
+                window.location.href = "{% url 'dashboard' %}";
+            }, 1000);  // 1-second delay
+        }
+    </script>
+        
+{% endblock content %}
